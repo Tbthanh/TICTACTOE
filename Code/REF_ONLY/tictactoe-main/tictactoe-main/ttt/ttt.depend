@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1625129451 source:d:\glut\ttt\main.c
+	<windows.h>
+	<GL/glut.h>
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+
+1625131086 source:d:\tai_lieu\et-e9\program\20231\ky_thuat_lap_trinh_c_cpp\tictactoe\code\ref_only\tictactoe-main\tictactoe-main\ttt\main.c
+	<windows.h>
+	<GL/glut.h>
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+

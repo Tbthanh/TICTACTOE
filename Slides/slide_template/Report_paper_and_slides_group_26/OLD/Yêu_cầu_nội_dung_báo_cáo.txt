@@ -1,0 +1,35 @@
+___________13/10/2023___________
+
+Phan tich bai toan:
+>Làm rõ user: ai, tham khảo thực tế hay không
+	vd: quản lý sinh viên có: gv(được tạo đề và cho sinh viên vào thi), ..
+>Sơ dồ chức năng UML(làm chuẩn)
+>Usecase:
+
+tsau 20/10/2023 báo cáo t5 upload 19
+
+Việc hnay phải nhập đầy đủ thông tin trên sheet
+
+Quản lý đông: upbai len wordpress, đăng báo cáo và giới thiệu về đề tài của nhóm
+
+
+___________20/10/2023___________
+- Phân loại yêu cầu
+- Yêu cầu chức năng
+	sơ đồ CNang -> SĐ usecase -> (Tke DB ->) Sđ lớp -> sđ tuần tự <đọc tham khảo>
+- yêu cầu phi chức năng:
+	đẹp, ...
+- Làm rõ vai trò và nghiệm vụ thành viên trong nhóm, doc (lưu lại quá trình phát triển và hdsd)
+
+
+___________27/10/2023___________
+- Sơ đồ chức năng!! Sơ đồ usecase!! mtham khảo nhóm Tùng, tham khảo UML
+- Phân chia công việc: các lớp và công việc các lớp
+- Sửa lại ppt và upload trước tháng 11
+
+___________03/11/2023___________
+-thiết kế đồ hoạ, quản lý cơ sở dữ liệu, nhập-xuất dữ liệu ra file excel data base = quản lý thu chi, sơ đồ chức năng đổi thành động từ!
+-Lưu đồ thuật toán, -> dơ đồ chức năng ... 
+-Bám theo sơ đồ chức năng: sửa sơ đồ usecase
+-Bổ sung timeline
+
