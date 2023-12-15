@@ -1,4 +1,4 @@
-/*
+﻿/*
 Title		:Xay dung game X-O su dung C++ va SDL
 Author		:nhom 26 - Tran Ba Thanh, Nguyen Duy Nhat Quang, Pham Huu Quang Khai
 Date created:15-12-2023
@@ -8,7 +8,15 @@ This code was writen with the help of OpenAI-ChatGPT and some handsome Indian gu
 */
 
 #include <iostream>
+#include <stdlib.h>
 #include <SDL.h>
+#include "D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_gfx-1.0.1\SDL2_gfx-1.0.1\SDL2_gfxPrimitives.h"
+
+// Define some constant
+#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 800
+#define CELL_WIDTH WINDOW_WIDTH/3
+#define CELL_HEIGHT WINDOW_HEIGHT/3
 
 using namespace std;
 
@@ -133,6 +141,8 @@ void drawBoard(SDL_Renderer* renderer)
 // Draw X,O based on player and board position
 void drawSymbol(SDL_Renderer* renderer, int row, int col, Player player)
 {
+	/*
+	* Comment out cause no need but still want it to remaain for future use.
 	// Set draw collor to red for X and blue for 0
 	if (player == Player::X)
 	{
@@ -142,14 +152,50 @@ void drawSymbol(SDL_Renderer* renderer, int row, int col, Player player)
 	{
 		SDL_SetRenderDrawColor(renderer, 51, 153, 255, 255);
 	}
-
+	*/
 	// Draw X or O based on player and board position
 	if (player == Player::X) 
 	{
-		SDL_RenderDrawLine(renderer, col * (800 / 3), row * (600 / 3), (col + 1) * (800 / 3), (row + 1) * (600 / 3));
-		SDL_RenderDrawLine(renderer, col * (800 / 3), (row + 1) * (600 / 3), (col + 1) * (800 / 3), row * (600 / 3));
+		const double half_box_size = fmin(CELL_WIDTH, CELL_HEIGHT) * 0.25;
+		const double center_x = (CELL_WIDTH) * 0.5 + col * CELL_WIDTH;
+		const double center_y = (CELL_HEIGHT) * 0.5 + row * CELL_HEIGHT;
+
+		// Draw a line from (x1,y1) to (x2,y2)
+		thickLineRGBA(renderer, 
+			center_x - half_box_size, // x1
+			center_y - half_box_size, // y1
+			center_x + half_box_size, // x2
+			center_y + half_box_size, // y2
+			10,
+			255, 51, 51, 255);
+		thickLineRGBA(renderer,
+			center_x + half_box_size,
+			center_y - half_box_size,
+			center_x - half_box_size,
+			center_y + half_box_size,
+			10,
+			255,
+			51,
+			51,
+			255);
+
+		// Old render technique: ugly line and just 1 pixel wide
+		//SDL_RenderDrawLine(renderer, col * (800 / 3), row * (600 / 3), (col + 1) * (800 / 3), (row + 1) * (600 / 3));
+		//SDL_RenderDrawLine(renderer, col * (800 / 3), (row + 1) * (600 / 3), (col + 1) * (800 / 3), row * (600 / 3));
 	}
 	else if (player == Player::O) {
+		const double half_box_size = fmin(CELL_WIDTH, CELL_HEIGHT) * 0.25;
+		const double center_x = (CELL_WIDTH) * 0.5 + col * CELL_WIDTH;
+		const double center_y = (CELL_HEIGHT) * 0.5 + row * CELL_HEIGHT;
+
+		filledCircleRGBA(renderer,
+			center_x, center_y, half_box_size + 5,
+			51, 153, 255, 255);
+		filledCircleRGBA(renderer,
+			center_x, center_y, half_box_size - 5,
+			255, 255, 255, 255);
+
+		/*
 		int centerX = col * (800 / 3) + (800 / 6);
 		int centerY = row * (600 / 3) + (600 / 6);
 		int radius = (800 / 3) / 2;
@@ -157,11 +203,12 @@ void drawSymbol(SDL_Renderer* renderer, int row, int col, Player player)
 		// Draw a circle
 		for (int i = 0; i <= 360; i += 1)
 		{
-			float rad = i * (3.14159265 / 180);
+			double rad = i * (3.14159265 / 180);
 			int x = centerX + radius * cos(rad);
 			int y = centerY + radius * sin(rad);
 			SDL_RenderDrawPoint(renderer, x, y);
 		}
+		*/
 	}
 }
 
@@ -205,7 +252,10 @@ int main(int argc, char* argv[])
 	// https://wiki.libsdl.org/SDL2/SDL_WINDOWPOS_CENTERED
 	// with w = 800p, h = 600p
 	// the SDL wiki doesnt have definition for SDL_WINDOWPOS_CENTERED so ...
-	SDL_Window* window = SDL_CreateWindow("Tic-Tac-Toe / X-O ghem rat hay", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+	SDL_Window* window = SDL_CreateWindow("Tic-Tac-Toe / X-O ghem rat hay", 
+													SDL_WINDOWPOS_CENTERED, 
+													SDL_WINDOWPOS_CENTERED, 
+													WINDOW_WIDTH, WINDOW_HEIGHT, 0);
 	if (!window)
 	{
 		SDL_Log("Unable to Initialize SDL: %s", SDL_GetError());
@@ -292,6 +342,18 @@ int main(int argc, char* argv[])
 
 		case GameState::GAME_PLAY:
 			renderGameplay(renderer);
+			break;
+
+		case GameState::HELP_SCREEN:
+
+			break;
+
+		case GameState::WIN_SCREEN:
+
+			break;
+
+		case GameState::CREDIT_SCREEN:
+
 			break;
 		}
 	}

@@ -1,0 +1,16 @@
+<...> Debug properties 
+	>> VC++ Directories
+		>> Include Directories >> edit and add the "...\TICTACTOE\SDL_learnin\SDL2-2.28.5\include"
+		>> library Directories >> edit and add the "...\TICTACTOE\SDL_learnin\SDL2-2.28.5\lib\x64"
+
+
+	>> Linker >> Input 
+		>> Aditionall Dependency >> edit and add "SDL2.lib<enter>SDL2main.lib<enter>SDL2_gfx.lib"
+
+some problem might come up so use this:
+	https://www.reddit.com/r/sdl/comments/fv6dlx/the_code_execution_cannot_proceed_because_sdl2dll/
+
+found mr.tbthanh explaina too hard to swalow? dont worry cuz u have these:
+	https://youtu.be/4OegeL84xC8?si=BJmsxz50PGO9h-zW
+	https://youtu.be/13AEnd8XB70?si=W9QO-Td9ubzUsSet
+

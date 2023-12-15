@@ -1,0 +1,7 @@
+﻿  SDL2_framerate.c
+  SDL2_gfxPrimitives.c
+  SDL2_rotozoom.c
+  SDL2_imageFilter.c
+  Generating Code...
+     Creating library D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_gfx-1.0.1\SDL2_gfx-1.0.1\x64\Debug\SDL2_gfx.lib and object D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_gfx-1.0.1\SDL2_gfx-1.0.1\x64\Debug\SDL2_gfx.exp
+  SDL2_gfx.vcxproj -> D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_gfx-1.0.1\SDL2_gfx-1.0.1\x64\Debug\SDL2_gfx.dll
