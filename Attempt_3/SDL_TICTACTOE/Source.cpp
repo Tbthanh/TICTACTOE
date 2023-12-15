@@ -166,7 +166,7 @@ void drawSymbol(SDL_Renderer* renderer, int row, int col, Player player)
 }
 
 // Rendering code
-void render(SDL_Renderer* renderer)
+void renderGameplay(SDL_Renderer* renderer)
 {
 	// Clear the renderer
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -284,7 +284,16 @@ int main(int argc, char* argv[])
 		}
 
 		// games logic and rendering go here
-		render(renderer);
+		switch (gameState)
+		{
+		case GameState::TITLE_SCREEN:
+			renderTitleScreen(renderer);
+			break;
+
+		case GameState::GAME_PLAY:
+			renderGameplay(renderer);
+			break;
+		}
 	}
 
 	//Clean up
