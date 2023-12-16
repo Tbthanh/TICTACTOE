@@ -27,54 +27,9 @@ Player currentPlayer = Player::X;
 Player board[3][3] = {{Player::NONE, Player::NONE, Player::NONE},
 					  {Player::NONE, Player::NONE, Player::NONE},
 					  {Player::NONE, Player::NONE, Player::NONE}};
+Player winner = Player::X;
 
-enum class GameState {TITLE_SCREEN, GAME_PLAY, HELP_SCREEN, WIN_SCREEN, CREDIT_SCREEN};
-
-/*
-SDL_Texture* startTextTexture = nullptr;
-SDL_Texture* helpTextTexture = nullptr;
-SDL_Texture* quitTextTexture = nullptr;
-
-// Function to load button text textures
-void loadButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font)
-{
-	SDL_Color textColor = { 0, 0, 0, 255 };  // White text color
-
-	// Use TTF_RenderText_Solid to render the text into a surface
-	static SDL_Surface* startTextSurface = TTF_RenderText_Solid(font, "Start", textColor);
-	static SDL_Surface* helpTextSurface = TTF_RenderText_Solid(font, "Help", textColor);
-	static SDL_Surface* quitTextSurface = TTF_RenderText_Solid(font, "Quit", textColor);
-
-	// Create textures from the surfaces
-	startTextTexture = SDL_CreateTextureFromSurface(renderer, startTextSurface);
-	helpTextTexture = SDL_CreateTextureFromSurface(renderer, helpTextSurface);
-	quitTextTexture = SDL_CreateTextureFromSurface(renderer, quitTextSurface);
-
-	// Free the surfaces as they are no longer needed
-	SDL_FreeSurface(startTextSurface);
-	SDL_FreeSurface(helpTextSurface);
-	SDL_FreeSurface(quitTextSurface);
-}
-
-TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace "your_font.ttf" with your font file
-
-// Function to create text texture from a given string
-SDL_Texture* createTextTexture(SDL_Renderer* renderer, TTF_Font* font, const char* text, SDL_Color textColor)
-{
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
-	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-
-	SDL_FreeSurface(textSurface);  // Free the surface as it's no longer needed
-
-	return textTexture;
-}
-
-// Function to render text on a given position
-void renderText(SDL_Renderer* renderer, SDL_Texture* textTexture, SDL_Rect position)
-{
-	SDL_RenderCopy(renderer, textTexture, nullptr, &position);
-}
-*/
+enum class GameState {TITLE_SCREEN, GAME_PLAY, HELP_SCREEN, WIN_SCREEN, DRAW_SCREEN};
 
 // Function to render the title screen
 void renderTitleScreen(SDL_Renderer* renderer)
@@ -98,23 +53,6 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Blue color
 	SDL_RenderFillRect(renderer, &quitButton);
 
-	/*
-	// Load button text textures
-	SDL_Texture* startTextTexture = createTextTexture(renderer, font, "Start", { 255, 255, 255, 255 });
-	SDL_Texture* helpTextTexture = createTextTexture(renderer, font, "Help", { 255, 255, 255, 255 });
-	SDL_Texture* quitTextTexture = createTextTexture(renderer, font, "Quit", { 255, 255, 255, 255 });
-
-	// Render button text
-	renderText(renderer, startTextTexture, { 200, 200, 200, 50 });
-	renderText(renderer, helpTextTexture, { 200, 300, 200, 50 });
-	renderText(renderer, quitTextTexture, { 200, 400, 200, 50 });
-
-	SDL_DestroyTexture(startTextTexture);
-	SDL_DestroyTexture(helpTextTexture);
-	SDL_DestroyTexture(quitTextTexture);
-	TTF_CloseFont(font);
-	*/
-
 	// Render title text
 	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
 	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
@@ -129,9 +67,40 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	SDL_Rect titleTextRect = { 150, 10, 700, 200 };  // Adjust position and size accordingly
 	SDL_RenderCopy(renderer, titleTextTexture, nullptr, &titleTextRect);
 
+
+	const char* startButtonText		= "Start  ";
+
+	SDL_Surface* startButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, startButtonText, textColor, 10);  // 400 is the wrap length
+	SDL_Texture* startButtonTextTexture = SDL_CreateTextureFromSurface(renderer, startButtonTextSurface);
+
+	SDL_Rect startButtonTextRect = { 210, 300, 180, 50 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, startButtonTextTexture, nullptr, &startButtonTextRect);
+
+	const char* helpButtonText		= "Help   ";
+	
+	SDL_Surface* helpButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, helpButtonText, textColor, 10);
+	SDL_Texture* helpButtonTextTexture = SDL_CreateTextureFromSurface(renderer, helpButtonTextSurface);
+
+	SDL_Rect helpButtonTextRect = { 210, 400, 180, 50 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, helpButtonTextTexture, nullptr, &helpButtonTextRect);
+
+	const char* quitButtonText		= "Quit   ";
+
+	SDL_Surface* quitButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, quitButtonText, textColor, 10); 
+	SDL_Texture* quitButtonTextTexture = SDL_CreateTextureFromSurface(renderer, quitButtonTextSurface);
+
+	SDL_Rect quitButtonTextRect = { 210, 500, 180, 50 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, quitButtonTextTexture, nullptr, &quitButtonTextRect);
+
 	// Free resources
 	SDL_FreeSurface(titleTextSurface);
 	SDL_DestroyTexture(titleTextTexture);
+	SDL_FreeSurface(startButtonTextSurface);
+	SDL_DestroyTexture(startButtonTextTexture);
+	SDL_FreeSurface(helpButtonTextSurface);
+	SDL_DestroyTexture(helpButtonTextTexture);
+	SDL_FreeSurface(quitButtonTextSurface);
+	SDL_DestroyTexture(quitButtonTextTexture);
 	TTF_CloseFont(font);
 
 	// Present the renderer
@@ -181,26 +150,159 @@ void handleMove(int row, int col)
 }
 
 // Function to check for a winner
-bool checkForWinner(/* Player board[3][3], Player currentPlayer */)
+void checkForWinner(GameState& gameState)
 {
 	// Own homecook winning conditions
 	// Check for 3 in a row or 3 in a colum (check cot/hang)
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 3; i++) 
+	{
 		if ((board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) ||
 			(board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer)) 
 		{
-			return true;
+			winner = currentPlayer;
+			gameState = GameState::WIN_SCREEN;
+			return;
 		}
 	}
 	// Check for 3 in a diagnal (check duong cheo)
 	if ((board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) ||
 		(board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer)) 
 	{
-		return true; 
+		winner = currentPlayer;
+		gameState = GameState::WIN_SCREEN;
+		return;
 	}
 
-	// No 3 in a row/diagnal/colum
-	return false;
+	// Check for a draw
+	bool draw = true;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (board[i][j] == Player::NONE) {
+				draw = false;
+				break;
+			}
+		}
+		if (!draw) {
+			break;
+		}
+	}
+
+	if (draw) {
+		gameState = GameState::DRAW_SCREEN;  // Adjust to the appropriate draw state
+	}
+
+	// No 3 in a row/diagnal/colum nothing happen
+}
+
+void resetBoard()
+{
+	// Reset all entries in the board array to Player::NONE
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 3; ++j)
+		{
+			board[i][j] = Player::NONE;
+		}
+	}
+
+	// Reset the current player to Player::X
+	currentPlayer = Player::X;
+}
+
+// Function to render the win screen
+void renderWinScreen(SDL_Renderer* renderer, Player _winner)
+{
+	// Clear the renderer
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+
+	// Render help text
+	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
+	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
+
+	if (winner == Player::X)
+	{
+		const char* winText = "Player X Wins!";
+		SDL_Surface* winTextSurface = TTF_RenderText_Blended_Wrapped(font, winText, textColor, 400);  // 400 is the wrap length
+		SDL_Texture* winTextTexture = SDL_CreateTextureFromSurface(renderer, winTextSurface);
+
+		SDL_Rect winTextRect = { 100, 100, 700, 200 };  // Adjust position and size accordingly
+		SDL_RenderCopy(renderer, winTextTexture, nullptr, &winTextRect);
+
+		// Free resources
+		SDL_FreeSurface(winTextSurface);
+		SDL_DestroyTexture(winTextTexture);
+		TTF_CloseFont(font);
+	}
+	else if (winner == Player::O)
+	{
+		const char* winText = "Player O Wins!";
+		SDL_Surface* winTextSurface = TTF_RenderText_Blended_Wrapped(font, winText, textColor, 400);  // 400 is the wrap length
+		SDL_Texture* winTextTexture = SDL_CreateTextureFromSurface(renderer, winTextSurface);
+
+		SDL_Rect winTextRect = { 100, 100, 700, 200 };  // Adjust position and size accordingly
+		SDL_RenderCopy(renderer, winTextTexture, nullptr, &winTextRect);
+
+		// Free resources
+		SDL_FreeSurface(winTextSurface);
+		SDL_DestroyTexture(winTextTexture);
+		TTF_CloseFont(font);
+	}
+
+	// Present the renderer
+	SDL_RenderPresent(renderer);
+}
+
+// Function to handle win screen events
+void handleWinScreenEvents(SDL_Event& event, GameState& gameState)
+{
+	resetBoard();
+
+	if (event.type == SDL_MOUSEBUTTONDOWN)
+	{
+		// Transition back to the title screen when any key is pressed
+		gameState = GameState::TITLE_SCREEN;
+	}
+}
+
+// Function to render the draw screen
+void renderDrawScreen(SDL_Renderer* renderer)
+{
+	// Clear the renderer
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+
+	// Render help text
+	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
+	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
+
+
+	const char* drawText = "It's a draw!";
+
+	SDL_Surface* drawTextSurface = TTF_RenderText_Blended_Wrapped(font, drawText, textColor, 400);  // 400 is the wrap length
+	SDL_Texture* drawTextTexture = SDL_CreateTextureFromSurface(renderer, drawTextSurface);
+
+	SDL_Rect drawTextRect = { 100, 100, 700, 200 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, drawTextTexture, nullptr, &drawTextRect);
+
+	// Free resources
+	SDL_FreeSurface(drawTextSurface);
+	SDL_DestroyTexture(drawTextTexture);
+	TTF_CloseFont(font);
+
+	// Present the renderer
+	SDL_RenderPresent(renderer);
+}
+
+// Function to handle draw screen events
+void handleDrawScreenEvents(SDL_Event& event, GameState& gameState)
+{
+	resetBoard();
+	if (event.type == SDL_MOUSEBUTTONDOWN)
+	{
+		// Transition back to the title screen when any key is pressed
+		gameState = GameState::TITLE_SCREEN;
+	}
 }
 
 // Function to draw the playing board
@@ -329,9 +431,8 @@ void renderHelpScreen(SDL_Renderer* renderer)
 	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
 	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
 
-	// Example help text
-	const char* helpText = "Welcome to Tic-Tac-Toe!\n\n"
-							"Made by Nhom 26 with love for KTLT & Huy sensei.\n"
+	const char* helpText = "Welcome to Tic-Tac-Toe!\n"
+							"Made by Nhom 26 with love for KTLT & Huy sensei.\n\n"
 							"Instructions:\n"
 							"- Click on an empty cell to make a move.\n"
 							"- Try to get three of your symbols in a row, column, or diagonal to win.\n"
@@ -356,7 +457,7 @@ void renderHelpScreen(SDL_Renderer* renderer)
 // Function to handle help screen events
 void handleHelpScreenEvents(SDL_Event& event, GameState& gameState)
 {
-	if (event.type == SDL_KEYDOWN)
+	if (event.type == SDL_MOUSEBUTTONDOWN)
 	{
 		// Transition back to the title screen when any key is pressed
 		gameState = GameState::TITLE_SCREEN;
@@ -443,14 +544,9 @@ int main(int argc, char* argv[])
 
 						// Handle player move
 						handleMove(row, col);
-
-						// Check for a winner
-						if (checkForWinner())
-						{
-							// Handle game over - retry / show map / quit
-
-						}
 					}
+					// Check for a winner
+					checkForWinner(gameState);
 					break;
 
 				case GameState::HELP_SCREEN:
@@ -458,11 +554,11 @@ int main(int argc, char* argv[])
 					break;
 
 				case GameState::WIN_SCREEN:
-
+					handleWinScreenEvents(event, gameState);
 					break;
 
-				case GameState::CREDIT_SCREEN:
-
+				case GameState::DRAW_SCREEN:
+					handleDrawScreenEvents(event, gameState);
 					break;
 			}
 			
@@ -485,11 +581,11 @@ int main(int argc, char* argv[])
 			break;
 
 		case GameState::WIN_SCREEN:
-
+			renderWinScreen(renderer, winner);
 			break;
 
-		case GameState::CREDIT_SCREEN:
-
+		case GameState::DRAW_SCREEN:
+			renderDrawScreen(renderer);
 			break;
 		}
 	}
