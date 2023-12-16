@@ -1,16 +1,16 @@
 ﻿  Source.cpp
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(232,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(231,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(230,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(229,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(239,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(238,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(237,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(236,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(256,38): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(256,14): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(256,4): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(259,38): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(259,14): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
-D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(259,4): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(251,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(250,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(249,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(248,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(258,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(257,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(256,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(255,13): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(275,38): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(275,14): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(275,4): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(278,38): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(278,14): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
+D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\Source.cpp(278,4): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
   SDL_TICTACTOE.vcxproj -> D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_3\SDL_TICTACTOE\x64\Debug\SDL_TICTACTOE.exe

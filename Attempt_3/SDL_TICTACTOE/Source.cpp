@@ -56,7 +56,7 @@ void loadButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font)
 	SDL_FreeSurface(quitTextSurface);
 }
 
-TTF_Font* font = TTF_OpenFont("D:\\TAI_LIEU\\ET-E9\\Program\\20231\\Ky_thuat_lap_trinh_C_Cpp\\TICTACTOE\\Attempt_3\\SDL_TICTACTOE\\arial.ttf", 24);  // Replace "your_font.ttf" with your font file
+TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace "your_font.ttf" with your font file
 
 // Function to create text texture from a given string
 SDL_Texture* createTextTexture(SDL_Renderer* renderer, TTF_Font* font, const char* text, SDL_Color textColor)
@@ -86,15 +86,15 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	// Render button: for simplicity, our teams use rectangles button
 	// https://wiki.libsdl.org/SDL2/SDL_Rect
 	// SDL_Rect <> {x, y, w, h};
-	SDL_Rect startButton = { 200, 200, 200, 50 };
+	SDL_Rect startButton = { 200, 300, 200, 50 };
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
 	SDL_RenderFillRect(renderer, &startButton);
 
-	SDL_Rect helpButton = { 200, 300, 200, 50 };
+	SDL_Rect helpButton = { 200, 400, 200, 50 };
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
 	SDL_RenderFillRect(renderer, &helpButton);
 
-	SDL_Rect quitButton = { 200, 400, 200, 50 };
+	SDL_Rect quitButton = { 200, 500, 200, 50 };
 	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Blue color
 	SDL_RenderFillRect(renderer, &quitButton);
 
@@ -115,6 +115,25 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	TTF_CloseFont(font);
 	*/
 
+	// Render title text
+	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
+	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
+
+	const char* titleText = 
+					"Tic-Tac-Toe!\n"
+					"Made by: Nhom 26";
+
+	SDL_Surface* titleTextSurface = TTF_RenderText_Blended_Wrapped(font, titleText, textColor, 400);  // 400 is the wrap length
+	SDL_Texture* titleTextTexture = SDL_CreateTextureFromSurface(renderer, titleTextSurface);
+
+	SDL_Rect titleTextRect = { 150, 10, 700, 200 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, titleTextTexture, nullptr, &titleTextRect);
+
+	// Free resources
+	SDL_FreeSurface(titleTextSurface);
+	SDL_DestroyTexture(titleTextTexture);
+	TTF_CloseFont(font);
+
 	// Present the renderer
 	SDL_RenderPresent(renderer);
 }
@@ -130,17 +149,17 @@ void handleTitleScreenEvents(SDL_Event& event, GameState& gameState, bool& quit)
 		// Check for button clicks
 		if (mouseX >= 200 && mouseX <= 400)
 		{
-			if (mouseY >= 200 && mouseY <= 250)
+			if (mouseY >= 300 && mouseY <= 350)
 			{
 				// Start button clicked
 				gameState = GameState::GAME_PLAY;
 			}
-			else if (mouseY >= 300 && mouseY <= 350)
+			else if (mouseY >= 400 && mouseY <= 450)
 			{
 				// Help button clicked
 				gameState = GameState::HELP_SCREEN;
 			}
-			else if (mouseY >= 400 && mouseY <= 450)
+			else if (mouseY >= 500 && mouseY <= 550)
 			{
 				// Quit button clicked
 				quit = true;
@@ -299,6 +318,51 @@ void renderGameplay(SDL_Renderer* renderer)
 	SDL_RenderPresent(renderer);
 }
 
+// Function to render the help screen
+void renderHelpScreen(SDL_Renderer* renderer)
+{
+	// Clear the renderer
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+
+	// Render help text
+	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
+	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
+
+	// Example help text
+	const char* helpText = "Welcome to Tic-Tac-Toe!\n\n"
+							"Made by Nhom 26 with love for KTLT & Huy sensei.\n"
+							"Instructions:\n"
+							"- Click on an empty cell to make a move.\n"
+							"- Try to get three of your symbols in a row, column, or diagonal to win.\n"
+							"- Switch turns with your opponent after each move.\n"
+							"- Have fun playing!";
+
+	SDL_Surface* helpTextSurface = TTF_RenderText_Blended_Wrapped(font, helpText, textColor, 400);  // 400 is the wrap length
+	SDL_Texture* helpTextTexture = SDL_CreateTextureFromSurface(renderer, helpTextSurface);
+
+	SDL_Rect helpTextRect = { 50, 50, 700, 500 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, helpTextTexture, nullptr, &helpTextRect);
+
+	// Free resources
+	SDL_FreeSurface(helpTextSurface);
+	SDL_DestroyTexture(helpTextTexture);
+	TTF_CloseFont(font);
+
+	// Present the renderer
+	SDL_RenderPresent(renderer);
+}
+
+// Function to handle help screen events
+void handleHelpScreenEvents(SDL_Event& event, GameState& gameState)
+{
+	if (event.type == SDL_KEYDOWN)
+	{
+		// Transition back to the title screen when any key is pressed
+		gameState = GameState::TITLE_SCREEN;
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	// test SDL working or not
@@ -390,7 +454,7 @@ int main(int argc, char* argv[])
 					break;
 
 				case GameState::HELP_SCREEN:
-
+					handleHelpScreenEvents(event, gameState);
 					break;
 
 				case GameState::WIN_SCREEN:
@@ -417,7 +481,7 @@ int main(int argc, char* argv[])
 			break;
 
 		case GameState::HELP_SCREEN:
-
+			renderHelpScreen(renderer);
 			break;
 
 		case GameState::WIN_SCREEN:
