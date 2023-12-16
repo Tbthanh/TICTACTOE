@@ -18,3 +18,8 @@ found mr.tbthanh explaina too hard to swalow? dont worry cuz u have these:
 More ref to put in to slides:
 	https://youtu.be/gCVMkKgs3uQ?si=2V-SMqeQotqv7Rh1
 	https://chat.openai.com/share/5e563a33-914e-408a-a5bc-d278653ed37b
+
+
+SDL_text
+	How To Make A Game #23 : Displaying Text with UI Labels in C++ And SDL2 Tutorial
+		https://youtu.be/PHaP3wDggnw?si=4cwL1-Y-n2_g4x5d
