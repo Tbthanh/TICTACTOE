@@ -11,6 +11,7 @@ This code was writen with the help of OpenAI-ChatGPT and some handsome Indian gu
 #include <stdlib.h>
 #include <SDL.h>
 #include "D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_gfx-1.0.1\SDL2_gfx-1.0.1\SDL2_gfxPrimitives.h"
+#include "D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_ttf-devel-2.0.14-VC\include\SDL_ttf.h"
 
 // Define some constant
 #define WINDOW_HEIGHT 600
@@ -28,6 +29,52 @@ Player board[3][3] = {{Player::NONE, Player::NONE, Player::NONE},
 					  {Player::NONE, Player::NONE, Player::NONE}};
 
 enum class GameState {TITLE_SCREEN, GAME_PLAY, HELP_SCREEN, WIN_SCREEN, CREDIT_SCREEN};
+
+/*
+SDL_Texture* startTextTexture = nullptr;
+SDL_Texture* helpTextTexture = nullptr;
+SDL_Texture* quitTextTexture = nullptr;
+
+// Function to load button text textures
+void loadButtonTextTextures(SDL_Renderer* renderer, TTF_Font* font)
+{
+	SDL_Color textColor = { 0, 0, 0, 255 };  // White text color
+
+	// Use TTF_RenderText_Solid to render the text into a surface
+	static SDL_Surface* startTextSurface = TTF_RenderText_Solid(font, "Start", textColor);
+	static SDL_Surface* helpTextSurface = TTF_RenderText_Solid(font, "Help", textColor);
+	static SDL_Surface* quitTextSurface = TTF_RenderText_Solid(font, "Quit", textColor);
+
+	// Create textures from the surfaces
+	startTextTexture = SDL_CreateTextureFromSurface(renderer, startTextSurface);
+	helpTextTexture = SDL_CreateTextureFromSurface(renderer, helpTextSurface);
+	quitTextTexture = SDL_CreateTextureFromSurface(renderer, quitTextSurface);
+
+	// Free the surfaces as they are no longer needed
+	SDL_FreeSurface(startTextSurface);
+	SDL_FreeSurface(helpTextSurface);
+	SDL_FreeSurface(quitTextSurface);
+}
+
+TTF_Font* font = TTF_OpenFont("D:\\TAI_LIEU\\ET-E9\\Program\\20231\\Ky_thuat_lap_trinh_C_Cpp\\TICTACTOE\\Attempt_3\\SDL_TICTACTOE\\arial.ttf", 24);  // Replace "your_font.ttf" with your font file
+
+// Function to create text texture from a given string
+SDL_Texture* createTextTexture(SDL_Renderer* renderer, TTF_Font* font, const char* text, SDL_Color textColor)
+{
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
+	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+	SDL_FreeSurface(textSurface);  // Free the surface as it's no longer needed
+
+	return textTexture;
+}
+
+// Function to render text on a given position
+void renderText(SDL_Renderer* renderer, SDL_Texture* textTexture, SDL_Rect position)
+{
+	SDL_RenderCopy(renderer, textTexture, nullptr, &position);
+}
+*/
 
 // Function to render the title screen
 void renderTitleScreen(SDL_Renderer* renderer)
@@ -50,6 +97,23 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	SDL_Rect quitButton = { 200, 400, 200, 50 };
 	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Blue color
 	SDL_RenderFillRect(renderer, &quitButton);
+
+	/*
+	// Load button text textures
+	SDL_Texture* startTextTexture = createTextTexture(renderer, font, "Start", { 255, 255, 255, 255 });
+	SDL_Texture* helpTextTexture = createTextTexture(renderer, font, "Help", { 255, 255, 255, 255 });
+	SDL_Texture* quitTextTexture = createTextTexture(renderer, font, "Quit", { 255, 255, 255, 255 });
+
+	// Render button text
+	renderText(renderer, startTextTexture, { 200, 200, 200, 50 });
+	renderText(renderer, helpTextTexture, { 200, 300, 200, 50 });
+	renderText(renderer, quitTextTexture, { 200, 400, 200, 50 });
+
+	SDL_DestroyTexture(startTextTexture);
+	SDL_DestroyTexture(helpTextTexture);
+	SDL_DestroyTexture(quitTextTexture);
+	TTF_CloseFont(font);
+	*/
 
 	// Present the renderer
 	SDL_RenderPresent(renderer);
@@ -241,10 +305,18 @@ int main(int argc, char* argv[])
 	//cout << "Hello world!" << endl;
 	//SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Hello world", "Successfull", NULL);
 
-	// Initialize SDL
+	// Initialize SDL and SDL_ttf
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		SDL_Log("Unable to Initialize SDL: %s", SDL_GetError());
+		return 1;
+	}
+
+	SDL_SetHint(SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING, "1");  // Disable thread naming to avoid potential conflicts
+	if (TTF_Init() != 0)
+	{
+		SDL_Log("Unable to initialize SDL_ttf: %s", SDL_GetError());
+		SDL_Quit();
 		return 1;
 	}
 
