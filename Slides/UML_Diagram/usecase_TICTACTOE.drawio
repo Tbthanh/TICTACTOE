@@ -1,0 +1,60 @@
+<mxfile host="Electron" modified="2023-12-22T03:25:26.852Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="pdSWtJd8ZnyODKySGvxL" version="22.1.2" type="device">
+  <diagram name="Page-1" id="RfYrQzGQmdfsF_zVa4Hh">
+    <mxGraphModel dx="979" dy="592" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xCLcRWl03LiHWQ9dhT0z-3" value="Start" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="240" y="200" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hvl328PQ1NeNEFiTXt3a-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="535" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="xCLcRWl03LiHWQ9dhT0z-14" value="Help" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="240" y="280" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="xCLcRWl03LiHWQ9dhT0z-21" value="Quit" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="240" y="360" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hvl328PQ1NeNEFiTXt3a-3" target="xCLcRWl03LiHWQ9dhT0z-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hvl328PQ1NeNEFiTXt3a-3" target="xCLcRWl03LiHWQ9dhT0z-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hvl328PQ1NeNEFiTXt3a-3" target="xCLcRWl03LiHWQ9dhT0z-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hvl328PQ1NeNEFiTXt3a-3" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;1-2 Người chơi&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/font&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="120" y="240" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-5" value="Người chơi đi" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="480" y="200" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-10" value="&amp;lt;&amp;lt;Include&amp;gt;&amp;gt;" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;dashed=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Etz49YjBubDLLr1IZVrb-7" target="Etz49YjBubDLLr1IZVrb-5">
+          <mxGeometry x="-0.1429" y="10" relative="1" as="geometry">
+            <mxPoint x="620" y="210" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-7" value="Xem kết quả" style="ellipse;whiteSpace=wrap;html=1;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="480" y="110" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-12" value="&amp;lt;&amp;lt;Include&amp;gt;&amp;gt;" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="Etz49YjBubDLLr1IZVrb-5" target="xCLcRWl03LiHWQ9dhT0z-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="690" y="120" as="sourcePoint" />
+            <mxPoint x="730" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-15" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;X đi trước&lt;br&gt;rồi lần lượt X-O&lt;br&gt;&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="1">
+          <mxGeometry x="470" y="280" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Etz49YjBubDLLr1IZVrb-16" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;endArrow=none;endFill=0;" edge="1" parent="1" source="Etz49YjBubDLLr1IZVrb-5" target="Etz49YjBubDLLr1IZVrb-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
