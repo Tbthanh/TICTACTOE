@@ -1,4 +1,4 @@
-![hanoi-tower](hanoi-tower-demo.png)
+![CoCaro](cocaro.png)
 
 ---
 
