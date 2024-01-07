@@ -10,6 +10,7 @@ This code was writen with the help of OpenAI-ChatGPT and some handsome Indian gu
 
 #include <iostream>
 #include <stdlib.h>
+#include <vector>
 #include <SDL.h>
 #include "D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_gfx-1.0.1\SDL2_gfx-1.0.1\SDL2_gfxPrimitives.h"
 #include "D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_ttf-devel-2.0.14-VC\include\SDL_ttf.h"
@@ -21,75 +22,117 @@ This code was writen with the help of OpenAI-ChatGPT and some handsome Indian gu
 #define WINDOW_WIDTH 800
 
 using namespace std;
-float BOARD_SIZE = 3;
+int BOARD_SIZE = 3;
 float CELL_WIDTH = WINDOW_WIDTH / BOARD_SIZE;
 float CELL_HEIGHT = WINDOW_HEIGHT / BOARD_SIZE;
 
 // Game logic class 
 enum class Player {NONE, X, O};
 Player currentPlayer = Player::X;
-Player board[3][3] = {{Player::NONE, Player::NONE, Player::NONE},
-					  {Player::NONE, Player::NONE, Player::NONE},
-					  {Player::NONE, Player::NONE, Player::NONE}};
 Player winner = Player::X;
 
-// Function to hand
+// Outer vector is the row
+vector <vector<Player>> board;
 
-// Function handling player moves
-void handleMove(int m_row, int m_col)
-{
-	if (board[m_row][m_col] == Player::NONE)
-	{
-		board[m_row][m_col] = currentPlayer;
-		
-		// Switch players
-		currentPlayer = (currentPlayer == Player::X) ? Player::O : Player::X;
-	}
+// Function to change board size
+void changeBOARD_SIZE(int newBOARD_SIZE = 3)
+{	
+	BOARD_SIZE = newBOARD_SIZE;
+	CELL_WIDTH = WINDOW_WIDTH / BOARD_SIZE;
+	CELL_HEIGHT = WINDOW_HEIGHT / BOARD_SIZE;
+	board.assign(BOARD_SIZE, vector<Player>(BOARD_SIZE, Player::NONE));
 }
 
 // Function to check for a winner
 void checkForWinner(GameState& gameState)
 {
-	// Own homecook winning conditions
-	// Check for 3 in a row or 3 in a colum (check cot/hang)
-	for (int i = 0; i < 3; i++) 
+	if (3 == BOARD_SIZE)
 	{
-		if ((board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) ||
-			(board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer)) 
+		// Own homecook winning conditions
+		// Check for 3 in a row or 3 in a colum (check cot/hang)
+		for (int i = 0; i < 3; i++)
+		{
+			if ((board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) ||
+				(board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer))
+			{
+				winner = currentPlayer;
+				gameState = GameState::WIN_SCREEN;
+				return;
+			}
+		}
+		// Check for 3 in a diagnal (check duong cheo)
+		if ((board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) ||
+			(board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer))
 		{
 			winner = currentPlayer;
 			gameState = GameState::WIN_SCREEN;
 			return;
 		}
 	}
-	// Check for 3 in a diagnal (check duong cheo)
-	if ((board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) ||
-		(board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer)) 
+
+	if (5 == BOARD_SIZE)
 	{
-		winner = currentPlayer;
-		gameState = GameState::WIN_SCREEN;
-		return;
+		// Check for 5 in a row or 5 in a column (check row/column)
+		for (int i = 0; i < 5; i++)
+		{
+			if ((board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer && board[i][3] == currentPlayer && board[i][4] == currentPlayer) ||
+				(board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer && board[3][i] == currentPlayer && board[4][i] == currentPlayer))
+			{
+				winner = currentPlayer;
+				gameState = GameState::WIN_SCREEN;
+				return;
+			}
+		}
+
+		// Check for 5 in a diagonal (check diagonal)
+		if ((board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer && board[3][3] == currentPlayer && board[4][4] == currentPlayer) ||
+			(board[0][4] == currentPlayer && board[1][3] == currentPlayer && board[2][2] == currentPlayer && board[3][1] == currentPlayer && board[4][0] == currentPlayer))
+		{
+			winner = currentPlayer;
+			gameState = GameState::WIN_SCREEN;
+			return;
+		}
 	}
 
 	// Check for a draw
 	bool draw = true;
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			if (board[i][j] == Player::NONE) {
+	for (int i = 0; i < BOARD_SIZE; i++)
+	{
+		for (int j = 0; j < BOARD_SIZE; j++)
+		{
+			if (board[i][j] == Player::NONE)
+			{
 				draw = false;
 				break;
 			}
 		}
-		if (!draw) {
+		if (!draw)
+		{
 			break;
 		}
 	}
 
-	if (draw) {
+	if (draw)
+	{
 		gameState = GameState::DRAW_SCREEN;  // Adjust to the appropriate draw state
+		return;
 	}
+	// No 5 or 3 depend on BOARD_SIZE  in a row/diagonal/column; nothing happens
+}
 
-	// No 3 in a row/diagnal/colum nothing happen
+// Function handling player moves
+void handleMove(int m_row, int m_col, GameState& gameState)
+{
+	if (board[m_row][m_col] == Player::NONE)
+	{
+		board[m_row][m_col] = currentPlayer;
+
+		// Check for a winner
+		checkForWinner(gameState);
+		
+		// Switch players
+		currentPlayer = (currentPlayer == Player::X) ? Player::O : Player::X;
+	}
 }
 
 void resetBoard()
@@ -210,14 +253,14 @@ void drawBoard(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
 	// Draw horizontal lines
-	for (int i = 1; i < 3; ++i)
+	for (int i = 1; i < BOARD_SIZE; ++i)
 	{
-		SDL_RenderDrawLine(renderer, 0, i * (600 / 3), 800, i * (600 / 3));
+		SDL_RenderDrawLine(renderer, 0, i * (WINDOW_HEIGHT / BOARD_SIZE), WINDOW_WIDTH, i * (WINDOW_HEIGHT / BOARD_SIZE));
 	}
 	// Draw vertical line
-	for (int i = 1; i < 3; ++i)
+	for (int i = 1; i < BOARD_SIZE; ++i)
 	{
-		SDL_RenderDrawLine(renderer, i * (800 / 3), 0, i * (800 / 3), 600);
+		SDL_RenderDrawLine(renderer, i * (WINDOW_WIDTH / BOARD_SIZE), 0, i * (WINDOW_WIDTH / BOARD_SIZE), WINDOW_HEIGHT);
 	}
 }
 
@@ -290,21 +333,21 @@ void renderHelpScreen(SDL_Renderer* renderer)
 	SDL_RenderClear(renderer);
 
 	// Render help text
-	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
+	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 20);  // Replace with your font file
 	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
 
 	const char* helpText = "Welcome to Tic-Tac-Toe!\n"
-							"Made by Nhom 26 with love for KTLT & Huy sensei.\n\n"
+							"Made by Nhom 26 with love for A+ KTLT & Huy sensei.\n"
 							"Instructions:\n"
 							"- Click on an empty cell to make a move.\n"
-							"- Try to get three of your symbols in a row, column, or diagonal to win.\n"
+							"- Try to get three or five of your symbols in a row, column, or diagonal to win.\n"
 							"- Switch turns with your opponent after each move.\n"
 							"- Have fun playing!";
 
 	SDL_Surface* helpTextSurface = TTF_RenderText_Blended_Wrapped(font, helpText, textColor, 400);  // 400 is the wrap length
 	SDL_Texture* helpTextTexture = SDL_CreateTextureFromSurface(renderer, helpTextSurface);
 
-	SDL_Rect helpTextRect = { 50, 50, 700, 500 };  // Adjust position and size accordingly
+	SDL_Rect helpTextRect = { 30, 30, 600, 500 };  // Adjust position and size accordingly
 	SDL_RenderCopy(renderer, helpTextTexture, nullptr, &helpTextRect);
 
 	// Free resources
@@ -326,6 +369,7 @@ void handleHelpScreenEvents(SDL_Event& event, GameState& gameState)
 	}
 }
 
+// MAIN
 int main(int argc, char* argv[])
 {
 	// test SDL working or not
@@ -346,6 +390,8 @@ int main(int argc, char* argv[])
 		SDL_Quit();
 		return 1;
 	}
+
+	changeBOARD_SIZE(5);
 
 	// Create a window
 	// https://wiki.libsdl.org/SDL2/SDL_WINDOWPOS_CENTERED
@@ -378,7 +424,6 @@ int main(int argc, char* argv[])
 		// Reference: https://wiki.libsdl.org/SDL2/SDL_Event
 		// To simplify, it a union that contain struct for different event
 		SDL_Event event;
-
 		while (SDL_PollEvent(&event) != 0)
 		{
 			if (event.type == SDL_QUIT)
@@ -405,10 +450,8 @@ int main(int argc, char* argv[])
 						int m_col = mouseX / (WINDOW_WIDTH / BOARD_SIZE);
 
 						// Handle player move
-						handleMove(m_row, m_col);
+						handleMove(m_row, m_col, gameState);
 					}
-					// Check for a winner
-					checkForWinner(gameState);
 					break;
 
 				case GameState::HELP_SCREEN:
@@ -423,8 +466,6 @@ int main(int argc, char* argv[])
 					handleDrawScreenEvents(event, gameState);
 					break;
 			}
-			
-
 		}
 
 		// games logic and rendering go here

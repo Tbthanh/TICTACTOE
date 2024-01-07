@@ -33,13 +33,13 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
 
 	const char* titleText =
-		"Tic-Tac-Toe!\n"
+		"CO CARO\n"
 		"Made by: Nhom 26";
 
 	SDL_Surface* titleTextSurface = TTF_RenderText_Blended_Wrapped(font, titleText, textColor, 400);  // 400 is the wrap length
 	SDL_Texture* titleTextTexture = SDL_CreateTextureFromSurface(renderer, titleTextSurface);
 
-	SDL_Rect titleTextRect = { 150, 10, 700, 200 };  // Adjust position and size accordingly
+	SDL_Rect titleTextRect = { 150, 10, 700, 250 };  // Adjust position and size accordingly
 	SDL_RenderCopy(renderer, titleTextTexture, nullptr, &titleTextRect);
 
 
@@ -48,7 +48,7 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	SDL_Surface* startButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, startButtonText, textColor, 10);  // 400 is the wrap length
 	SDL_Texture* startButtonTextTexture = SDL_CreateTextureFromSurface(renderer, startButtonTextSurface);
 
-	SDL_Rect startButtonTextRect = { 210, 300, 180, 50 };  // Adjust position and size accordingly
+	SDL_Rect startButtonTextRect = { 210, 300, 150, 50 };  // Adjust position and size accordingly
 	SDL_RenderCopy(renderer, startButtonTextTexture, nullptr, &startButtonTextRect);
 
 	const char* helpButtonText = "Help   ";
@@ -56,7 +56,7 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	SDL_Surface* helpButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, helpButtonText, textColor, 10);
 	SDL_Texture* helpButtonTextTexture = SDL_CreateTextureFromSurface(renderer, helpButtonTextSurface);
 
-	SDL_Rect helpButtonTextRect = { 210, 400, 180, 50 };  // Adjust position and size accordingly
+	SDL_Rect helpButtonTextRect = { 210, 400, 150, 50 };  // Adjust position and size accordingly
 	SDL_RenderCopy(renderer, helpButtonTextTexture, nullptr, &helpButtonTextRect);
 
 	const char* quitButtonText = "Quit   ";
@@ -64,7 +64,7 @@ void renderTitleScreen(SDL_Renderer* renderer)
 	SDL_Surface* quitButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, quitButtonText, textColor, 10);
 	SDL_Texture* quitButtonTextTexture = SDL_CreateTextureFromSurface(renderer, quitButtonTextSurface);
 
-	SDL_Rect quitButtonTextRect = { 210, 500, 180, 50 };  // Adjust position and size accordingly
+	SDL_Rect quitButtonTextRect = { 210, 500, 150, 50 };  // Adjust position and size accordingly
 	SDL_RenderCopy(renderer, quitButtonTextTexture, nullptr, &quitButtonTextRect);
 
 	// Free resources
