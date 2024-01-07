@@ -1,6 +1,7 @@
 ﻿/*
-Title		:Xay dung game X-O su dung C++ va SDL
-Author		:nhom 26 - Tran Ba Thanh, Nguyen Duy Nhat Quang, Pham Huu Quang Khai
+Title		:Xay dung game co ca ro su dung C++ va SDL
+Author		:nhom 26 - Tran Ba Thanh
+Support		:nhom 26 - Nguyen Duy Nhat Quang, nhom 26 - Pham Huu Quang Khai
 Date created:15-12-2023
 Last edited	: 15-12-2023
 
@@ -12,14 +13,17 @@ This code was writen with the help of OpenAI-ChatGPT and some handsome Indian gu
 #include <SDL.h>
 #include "D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_gfx-1.0.1\SDL2_gfx-1.0.1\SDL2_gfxPrimitives.h"
 #include "D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\SDL_learnin\SDL2_ttf-devel-2.0.14-VC\include\SDL_ttf.h"
+#include "GameState.h"
+#include "TitleScreen.h"
 
 // Define some constant
 #define WINDOW_HEIGHT 600
 #define WINDOW_WIDTH 800
-#define CELL_WIDTH WINDOW_WIDTH/3
-#define CELL_HEIGHT WINDOW_HEIGHT/3
 
 using namespace std;
+float BOARD_SIZE = 3;
+float CELL_WIDTH = WINDOW_WIDTH / BOARD_SIZE;
+float CELL_HEIGHT = WINDOW_HEIGHT / BOARD_SIZE;
 
 // Game logic class 
 enum class Player {NONE, X, O};
@@ -29,120 +33,14 @@ Player board[3][3] = {{Player::NONE, Player::NONE, Player::NONE},
 					  {Player::NONE, Player::NONE, Player::NONE}};
 Player winner = Player::X;
 
-enum class GameState {TITLE_SCREEN, GAME_PLAY, HELP_SCREEN, WIN_SCREEN, DRAW_SCREEN};
-
-// Function to render the title screen
-void renderTitleScreen(SDL_Renderer* renderer)
-{
-	// Clear the renderer
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderClear(renderer);
-
-	// Render button: for simplicity, our teams use rectangles button
-	// https://wiki.libsdl.org/SDL2/SDL_Rect
-	// SDL_Rect <> {x, y, w, h};
-	SDL_Rect startButton = { 200, 300, 200, 50 };
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
-	SDL_RenderFillRect(renderer, &startButton);
-
-	SDL_Rect helpButton = { 200, 400, 200, 50 };
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
-	SDL_RenderFillRect(renderer, &helpButton);
-
-	SDL_Rect quitButton = { 200, 500, 200, 50 };
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Blue color
-	SDL_RenderFillRect(renderer, &quitButton);
-
-	// Render title text
-	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
-	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
-
-	const char* titleText = 
-					"Tic-Tac-Toe!\n"
-					"Made by: Nhom 26";
-
-	SDL_Surface* titleTextSurface = TTF_RenderText_Blended_Wrapped(font, titleText, textColor, 400);  // 400 is the wrap length
-	SDL_Texture* titleTextTexture = SDL_CreateTextureFromSurface(renderer, titleTextSurface);
-
-	SDL_Rect titleTextRect = { 150, 10, 700, 200 };  // Adjust position and size accordingly
-	SDL_RenderCopy(renderer, titleTextTexture, nullptr, &titleTextRect);
-
-
-	const char* startButtonText		= "Start  ";
-
-	SDL_Surface* startButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, startButtonText, textColor, 10);  // 400 is the wrap length
-	SDL_Texture* startButtonTextTexture = SDL_CreateTextureFromSurface(renderer, startButtonTextSurface);
-
-	SDL_Rect startButtonTextRect = { 210, 300, 180, 50 };  // Adjust position and size accordingly
-	SDL_RenderCopy(renderer, startButtonTextTexture, nullptr, &startButtonTextRect);
-
-	const char* helpButtonText		= "Help   ";
-	
-	SDL_Surface* helpButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, helpButtonText, textColor, 10);
-	SDL_Texture* helpButtonTextTexture = SDL_CreateTextureFromSurface(renderer, helpButtonTextSurface);
-
-	SDL_Rect helpButtonTextRect = { 210, 400, 180, 50 };  // Adjust position and size accordingly
-	SDL_RenderCopy(renderer, helpButtonTextTexture, nullptr, &helpButtonTextRect);
-
-	const char* quitButtonText		= "Quit   ";
-
-	SDL_Surface* quitButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, quitButtonText, textColor, 10); 
-	SDL_Texture* quitButtonTextTexture = SDL_CreateTextureFromSurface(renderer, quitButtonTextSurface);
-
-	SDL_Rect quitButtonTextRect = { 210, 500, 180, 50 };  // Adjust position and size accordingly
-	SDL_RenderCopy(renderer, quitButtonTextTexture, nullptr, &quitButtonTextRect);
-
-	// Free resources
-	SDL_FreeSurface(titleTextSurface);
-	SDL_DestroyTexture(titleTextTexture);
-	SDL_FreeSurface(startButtonTextSurface);
-	SDL_DestroyTexture(startButtonTextTexture);
-	SDL_FreeSurface(helpButtonTextSurface);
-	SDL_DestroyTexture(helpButtonTextTexture);
-	SDL_FreeSurface(quitButtonTextSurface);
-	SDL_DestroyTexture(quitButtonTextTexture);
-	TTF_CloseFont(font);
-
-	// Present the renderer
-	SDL_RenderPresent(renderer);
-}
-
-// Function to handle title screen events
-void handleTitleScreenEvents(SDL_Event& event, GameState& gameState, bool& quit)
-{
-	if (event.type == SDL_MOUSEBUTTONDOWN)
-	{
-		int mouseX, mouseY;
-		SDL_GetMouseState(&mouseX, &mouseY);
-
-		// Check for button clicks
-		if (mouseX >= 200 && mouseX <= 400)
-		{
-			if (mouseY >= 300 && mouseY <= 350)
-			{
-				// Start button clicked
-				gameState = GameState::GAME_PLAY;
-			}
-			else if (mouseY >= 400 && mouseY <= 450)
-			{
-				// Help button clicked
-				gameState = GameState::HELP_SCREEN;
-			}
-			else if (mouseY >= 500 && mouseY <= 550)
-			{
-				// Quit button clicked
-				quit = true;
-			}
-		}
-	}
-}
+// Function to hand
 
 // Function handling player moves
-void handleMove(int row, int col)
+void handleMove(int m_row, int m_col)
 {
-	if (board[row][col] == Player::NONE)
+	if (board[m_row][m_col] == Player::NONE)
 	{
-		board[row][col] = currentPlayer;
+		board[m_row][m_col] = currentPlayer;
 		
 		// Switch players
 		currentPlayer = (currentPlayer == Player::X) ? Player::O : Player::X;
@@ -197,9 +95,9 @@ void checkForWinner(GameState& gameState)
 void resetBoard()
 {
 	// Reset all entries in the board array to Player::NONE
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < BOARD_SIZE; ++i)
 	{
-		for (int j = 0; j < 3; ++j)
+		for (int j = 0; j < BOARD_SIZE; ++j)
 		{
 			board[i][j] = Player::NONE;
 		}
@@ -324,26 +222,13 @@ void drawBoard(SDL_Renderer* renderer)
 }
 
 // Draw X,O based on player and board position
-void drawSymbol(SDL_Renderer* renderer, int row, int col, Player player)
+void drawSymbol(SDL_Renderer* renderer, int m_row, int m_col, Player player)
 {
-	/*
-	* Comment out cause no need but still want it to remaain for future use.
-	// Set draw collor to red for X and blue for 0
-	if (player == Player::X)
-	{
-		SDL_SetRenderDrawColor(renderer, 255, 51, 51, 255);
-	}
-	else if (player == Player::O)
-	{
-		SDL_SetRenderDrawColor(renderer, 51, 153, 255, 255);
-	}
-	*/
-	// Draw X or O based on player and board position
 	if (player == Player::X) 
 	{
 		const double half_box_size = fmin(CELL_WIDTH, CELL_HEIGHT) * 0.25;
-		const double center_x = (CELL_WIDTH) * 0.5 + col * CELL_WIDTH;
-		const double center_y = (CELL_HEIGHT) * 0.5 + row * CELL_HEIGHT;
+		const double center_x = (CELL_WIDTH) * 0.5 + m_col * CELL_WIDTH;
+		const double center_y = (CELL_HEIGHT) * 0.5 + m_row * CELL_HEIGHT;
 
 		// Draw a line from (x1,y1) to (x2,y2)
 		thickLineRGBA(renderer, 
@@ -358,20 +243,12 @@ void drawSymbol(SDL_Renderer* renderer, int row, int col, Player player)
 			center_y - half_box_size,
 			center_x - half_box_size,
 			center_y + half_box_size,
-			10,
-			255,
-			51,
-			51,
-			255);
-
-		// Old render technique: ugly line and just 1 pixel wide
-		//SDL_RenderDrawLine(renderer, col * (800 / 3), row * (600 / 3), (col + 1) * (800 / 3), (row + 1) * (600 / 3));
-		//SDL_RenderDrawLine(renderer, col * (800 / 3), (row + 1) * (600 / 3), (col + 1) * (800 / 3), row * (600 / 3));
+			10, 255, 51, 51, 255);
 	}
 	else if (player == Player::O) {
 		const double half_box_size = fmin(CELL_WIDTH, CELL_HEIGHT) * 0.25;
-		const double center_x = (CELL_WIDTH) * 0.5 + col * CELL_WIDTH;
-		const double center_y = (CELL_HEIGHT) * 0.5 + row * CELL_HEIGHT;
+		const double center_x = (CELL_WIDTH) * 0.5 + m_col * CELL_WIDTH;
+		const double center_y = (CELL_HEIGHT) * 0.5 + m_row * CELL_HEIGHT;
 
 		filledCircleRGBA(renderer,
 			center_x, center_y, half_box_size + 5,
@@ -379,21 +256,6 @@ void drawSymbol(SDL_Renderer* renderer, int row, int col, Player player)
 		filledCircleRGBA(renderer,
 			center_x, center_y, half_box_size - 5,
 			255, 255, 255, 255);
-
-		/*
-		int centerX = col * (800 / 3) + (800 / 6);
-		int centerY = row * (600 / 3) + (600 / 6);
-		int radius = (800 / 3) / 2;
-
-		// Draw a circle
-		for (int i = 0; i <= 360; i += 1)
-		{
-			double rad = i * (3.14159265 / 180);
-			int x = centerX + radius * cos(rad);
-			int y = centerY + radius * sin(rad);
-			SDL_RenderDrawPoint(renderer, x, y);
-		}
-		*/
 	}
 }
 
@@ -408,9 +270,9 @@ void renderGameplay(SDL_Renderer* renderer)
 	drawBoard(renderer);
 
 	// Draw the X and O symbol based on board state
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < BOARD_SIZE; ++i)
 	{
-		for (int j = 0; j < 3; ++j)
+		for (int j = 0; j < BOARD_SIZE; ++j)
 		{
 			drawSymbol(renderer, i, j, board[i][j]);
 		}
@@ -539,11 +401,11 @@ int main(int argc, char* argv[])
 						SDL_GetMouseState(&mouseX, &mouseY);
 
 						// Convert mouse coordiantes to board section
-						int row = mouseY / (600 / 3);
-						int col = mouseX / (800 / 3);
+						int m_row = mouseY / (WINDOW_HEIGHT / BOARD_SIZE);
+						int m_col = mouseX / (WINDOW_WIDTH / BOARD_SIZE);
 
 						// Handle player move
-						handleMove(row, col);
+						handleMove(m_row, m_col);
 					}
 					// Check for a winner
 					checkForWinner(gameState);
