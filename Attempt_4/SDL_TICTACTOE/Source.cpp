@@ -43,6 +43,101 @@ void changeBOARD_SIZE(int newBOARD_SIZE = 3)
 	board.assign(BOARD_SIZE, vector<Player>(BOARD_SIZE, Player::NONE));
 }
 
+// Function to render Gamemode
+void renderGamemode(SDL_Renderer* renderer)
+{
+	// Clear the renderer
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+
+	// Render Gamemode text
+	TTF_Font* font = TTF_OpenFont("D:/TAI_LIEU/ET-E9/Program/20231/Ky_thuat_lap_trinh_C_Cpp/TICTACTOE/Attempt_3/SDL_TICTACTOE/arial.ttf", 24);  // Replace with your font file
+	SDL_Color textColor = { 0, 0, 0, 255 };  // Black text color
+
+	const char* gmText =
+		"Choose game mode";
+
+	SDL_Surface* gmTextSurface = TTF_RenderText_Blended_Wrapped(font, gmText, textColor, 400);  // 400 is the wrap length
+	SDL_Texture* gmTextTexture = SDL_CreateTextureFromSurface(renderer, gmTextSurface);
+	SDL_Rect gmTextRect = { 150, 10, 700, 250 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, gmTextTexture, nullptr, &gmTextRect);
+
+	// Render button
+	SDL_Rect x3Button = { 200, 300, 200, 50 };
+	SDL_SetRenderDrawColor(renderer, 4, 170, 109, 255); // #04aa6d color RGB value is (4,170,109)
+	SDL_RenderFillRect(renderer, &x3Button);
+
+	SDL_Rect x5Button = { 200, 400, 200, 50 };
+	SDL_SetRenderDrawColor(renderer, 104, 204, 167, 255); // #68cca7 color RGB value is (104,204,167)
+	SDL_RenderFillRect(renderer, &x5Button);
+
+	SDL_Rect x10Button = { 200, 500, 200, 50 };
+	SDL_SetRenderDrawColor(renderer, 179, 229, 211, 255); // #b3e5d3 color RGB value is (179,229,211)
+	SDL_RenderFillRect(renderer, &x10Button);
+
+	const char* x3ButtonText = "03x03   ";
+	SDL_Surface* x3ButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, x3ButtonText, textColor, 10);  // 400 is the wrap length
+	SDL_Texture* x3ButtonTextTexture = SDL_CreateTextureFromSurface(renderer, x3ButtonTextSurface);
+	SDL_Rect x3ButtonTextRect = { 210, 300, 150, 50 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, x3ButtonTextTexture, nullptr, &x3ButtonTextRect);
+
+	const char* x5ButtonText = "05x05   ";
+	SDL_Surface* x5ButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, x5ButtonText, textColor, 10);
+	SDL_Texture* x5ButtonTextTexture = SDL_CreateTextureFromSurface(renderer, x5ButtonTextSurface);
+	SDL_Rect x5ButtonTextRect = { 210, 400, 150, 50 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, x5ButtonTextTexture, nullptr, &x5ButtonTextRect);
+
+	const char* x10ButtonText = "10x10   ";
+	SDL_Surface* x10ButtonTextSurface = TTF_RenderText_Blended_Wrapped(font, x10ButtonText, textColor, 10);
+	SDL_Texture* x10ButtonTextTexture = SDL_CreateTextureFromSurface(renderer, x10ButtonTextSurface);
+	SDL_Rect x10ButtonTextRect = { 210, 500, 150, 50 };  // Adjust position and size accordingly
+	SDL_RenderCopy(renderer, x10ButtonTextTexture, nullptr, &x10ButtonTextRect);
+
+	// Free resources
+	SDL_FreeSurface(gmTextSurface);
+	SDL_DestroyTexture(gmTextTexture);
+	SDL_FreeSurface(x3ButtonTextSurface);
+	SDL_DestroyTexture(x3ButtonTextTexture);
+	SDL_FreeSurface(x5ButtonTextSurface);
+	SDL_DestroyTexture(x5ButtonTextTexture);
+	SDL_FreeSurface(x10ButtonTextSurface);
+	SDL_DestroyTexture(x10ButtonTextTexture);
+	TTF_CloseFont(font);
+
+	// Present the renderer
+	SDL_RenderPresent(renderer);
+}
+
+// Function to handle Gamemode
+void handleGamemodeScreenEvents(SDL_Event& event, GameState& gameState)
+{
+	if (event.type == SDL_MOUSEBUTTONDOWN)
+	{
+		int mouseX, mouseY;
+		SDL_GetMouseState(&mouseX, &mouseY);
+
+		// Check for button clicks
+		if (mouseX >= 200 && mouseX <= 400)
+		{
+			if (mouseY >= 300 && mouseY <= 350)
+			{
+				changeBOARD_SIZE(3);
+				gameState = GameState::GAME_PLAY;
+			}
+			else if (mouseY >= 400 && mouseY <= 450)
+			{
+				changeBOARD_SIZE(5);
+				gameState = GameState::GAME_PLAY;
+			}
+			else if (mouseY >= 500 && mouseY <= 550)
+			{
+				changeBOARD_SIZE(10);
+				gameState = GameState::GAME_PLAY;
+			}
+		}
+	}
+}
+
 // Function to check for a winner
 void checkForWinner(GameState& gameState)
 {
@@ -92,57 +187,6 @@ void checkForWinner(GameState& gameState)
 		gameState = GameState::WIN_SCREEN;
 		return;
 	}
-
-
-	/*
-	if (3 == BOARD_SIZE)
-	{
-		// Own homecook winning conditions
-		// Check for 3 in a row or 3 in a colum (check cot/hang)
-		for (int i = 0; i < 3; i++)
-		{
-			if ((board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer) ||
-				(board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer))
-			{
-				winner = currentPlayer;
-				gameState = GameState::WIN_SCREEN;
-				return;
-			}
-		}
-		// Check for 3 in a diagnal (check duong cheo)
-		if ((board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer) ||
-			(board[0][2] == currentPlayer && board[1][1] == currentPlayer && board[2][0] == currentPlayer))
-		{
-			winner = currentPlayer;
-			gameState = GameState::WIN_SCREEN;
-			return;
-		}
-	}
-
-	if (5 == BOARD_SIZE)
-	{
-		// Check for 5 in a row or 5 in a column (check row/column)
-		for (int i = 0; i < 5; i++)
-		{
-			if ((board[i][0] == currentPlayer && board[i][1] == currentPlayer && board[i][2] == currentPlayer && board[i][3] == currentPlayer && board[i][4] == currentPlayer) ||
-				(board[0][i] == currentPlayer && board[1][i] == currentPlayer && board[2][i] == currentPlayer && board[3][i] == currentPlayer && board[4][i] == currentPlayer))
-			{
-				winner = currentPlayer;
-				gameState = GameState::WIN_SCREEN;
-				return;
-			}
-		}
-
-		// Check for 5 in a diagonal (check diagonal)
-		if ((board[0][0] == currentPlayer && board[1][1] == currentPlayer && board[2][2] == currentPlayer && board[3][3] == currentPlayer && board[4][4] == currentPlayer) ||
-			(board[0][4] == currentPlayer && board[1][3] == currentPlayer && board[2][2] == currentPlayer && board[3][1] == currentPlayer && board[4][0] == currentPlayer))
-		{
-			winner = currentPlayer;
-			gameState = GameState::WIN_SCREEN;
-			return;
-		}
-	}
-	*/
 
 	// Check for a draw
 	bool draw = true;
@@ -441,8 +485,6 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	changeBOARD_SIZE(10);
-
 	// Create a window
 	// https://wiki.libsdl.org/SDL2/SDL_WINDOWPOS_CENTERED
 	// with w = 800p, h = 600p
@@ -488,6 +530,10 @@ int main(int argc, char* argv[])
 					handleTitleScreenEvents(event, gameState, quit);
 					break;
 
+				case GameState::GAME_MODE:
+					handleGamemodeScreenEvents(event, gameState);
+					break;
+
 				case GameState::GAME_PLAY:
 					// Handle mouse click or keyboard for player moves
 					if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -523,6 +569,10 @@ int main(int argc, char* argv[])
 		{
 		case GameState::TITLE_SCREEN:
 			renderTitleScreen(renderer);
+			break;
+
+		case GameState::GAME_MODE:
+			renderGamemode(renderer);
 			break;
 
 		case GameState::GAME_PLAY:

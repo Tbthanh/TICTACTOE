@@ -96,7 +96,7 @@ void handleTitleScreenEvents(SDL_Event& event, GameState& gameState, bool& quit)
 			if (mouseY >= 300 && mouseY <= 350)
 			{
 				// Start button clicked
-				gameState = GameState::GAME_PLAY;
+				gameState = GameState::GAME_MODE;
 			}
 			else if (mouseY >= 400 && mouseY <= 450)
 			{
