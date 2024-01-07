@@ -2,6 +2,12 @@
 
 ---
 
+# Video demo
+
+https://github.com/Tbthanh/TICTACTOE/assets/90943148/b9b1fbd1-3328-4883-ab3a-56070d62936a
+
+---
+
 # ⇁ CoCaro
 CoCaro, also known as Gomoku or Five in a Row, is a strategic board game that originated in East Asia and is played on a square grid. The game is similar to tic-tac-toe but is typically played on a larger board, making it more complex and challenging. The Vietnamese term for this game is Cờ caro.
 
