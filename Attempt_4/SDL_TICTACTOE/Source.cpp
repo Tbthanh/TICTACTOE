@@ -46,6 +46,55 @@ void changeBOARD_SIZE(int newBOARD_SIZE = 3)
 // Function to check for a winner
 void checkForWinner(GameState& gameState)
 {
+	int row_count = 0;
+	int column_count = 0;
+	int diag1_count = 0;
+	int diag2_count = 0;
+
+	for (int i = 0; i < BOARD_SIZE; ++i)
+	{
+		// Check for column and row
+		row_count = 0;
+		column_count = 0;
+		for (int j = 0; j < BOARD_SIZE; ++j)
+		{
+			if (board[i][j] == currentPlayer) 
+			{
+				row_count++;
+			}
+
+			if (board[j][i] == currentPlayer) 
+			{
+				column_count++;
+			}
+			if (row_count >= BOARD_SIZE || column_count >= BOARD_SIZE) 
+			{
+				winner = currentPlayer;
+				gameState = GameState::WIN_SCREEN;
+				return;
+			}
+		}
+
+		// Check for diagnal
+		if (board[i][i] == currentPlayer)
+		{
+			diag1_count++;
+		}
+
+		if (board[(BOARD_SIZE - 1) - i][i] == currentPlayer)
+		{
+			diag2_count++;
+		}
+	}
+	if (diag1_count >= BOARD_SIZE || diag2_count >= BOARD_SIZE)
+	{
+		winner = currentPlayer;
+		gameState = GameState::WIN_SCREEN;
+		return;
+	}
+
+
+	/*
 	if (3 == BOARD_SIZE)
 	{
 		// Own homecook winning conditions
@@ -93,6 +142,7 @@ void checkForWinner(GameState& gameState)
 			return;
 		}
 	}
+	*/
 
 	// Check for a draw
 	bool draw = true;
@@ -391,7 +441,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	changeBOARD_SIZE(5);
+	changeBOARD_SIZE(10);
 
 	// Create a window
 	// https://wiki.libsdl.org/SDL2/SDL_WINDOWPOS_CENTERED
