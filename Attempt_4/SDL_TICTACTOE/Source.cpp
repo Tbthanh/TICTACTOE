@@ -59,7 +59,7 @@ void renderGamemode(SDL_Renderer* renderer)
 
 	SDL_Surface* gmTextSurface = TTF_RenderText_Blended_Wrapped(font, gmText, textColor, 400);  // 400 is the wrap length
 	SDL_Texture* gmTextTexture = SDL_CreateTextureFromSurface(renderer, gmTextSurface);
-	SDL_Rect gmTextRect = { 150, 10, 700, 250 };  // Adjust position and size accordingly
+	SDL_Rect gmTextRect = { 150, 10, 400, 100 };  // Adjust position and size accordingly
 	SDL_RenderCopy(renderer, gmTextTexture, nullptr, &gmTextRect);
 
 	// Render button
