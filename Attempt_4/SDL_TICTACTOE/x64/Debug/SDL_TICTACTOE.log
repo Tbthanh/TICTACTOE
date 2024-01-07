@@ -17,4 +17,4 @@ D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_4\SDL
 D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_4\SDL_TICTACTOE\Source.cpp(300,38): warning C4244: 'argument': conversion from 'double' to 'Sint16', possible loss of data
 D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_4\SDL_TICTACTOE\Source.cpp(300,14): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
 D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_4\SDL_TICTACTOE\Source.cpp(300,4): warning C4244: 'argument': conversion from 'const double' to 'Sint16', possible loss of data
-LINK : fatal error LNK1104: cannot open file 'D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_4\SDL_TICTACTOE\x64\Debug\SDL_TICTACTOE.exe'
+  SDL_TICTACTOE.vcxproj -> D:\TAI_LIEU\ET-E9\Program\20231\Ky_thuat_lap_trinh_C_Cpp\TICTACTOE\Attempt_4\SDL_TICTACTOE\x64\Debug\SDL_TICTACTOE.exe
